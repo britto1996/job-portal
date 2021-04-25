@@ -47,4 +47,36 @@ router.get("/jobs", (req, res) => {
   });
 });
 
+//getting one job
+router.get("/:id", (req, res) => {
+  Job.findById(req.params.id).then((job) =>
+    res.json(job).catch((err) => console.log(err))
+  );
+});
+
+//edit job details
+router.put("/edit/:id", (req, res) => {
+  Job.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: req.body,
+    },
+    (error, data) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(data);
+        console.log("Job updated successfully");
+      }
+    }
+  );
+});
+
+//delete a job from db
+router.delete("/del/:id", (req, res) => {
+  Job.findById(req.params.id)
+    .then((job) => job.remove().then(() => res.json({ success: true })))
+    .catch((err) => res.status(404).json({ success: false }));
+});
+
 module.exports = router;

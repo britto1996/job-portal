@@ -13,6 +13,7 @@ dotenv.config();
 //routes
 const userRouter = require("./routes/user");
 const jobRouter = require("./routes/job");
+const applicationRouter = require("./routes/application");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ db.once("open", function () {
 //setting up api endpoints
 app.use("/user", userRouter);
 app.use("/jobs", jobRouter);
+app.use("/application", applicationRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

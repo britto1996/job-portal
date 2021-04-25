@@ -109,16 +109,15 @@ router.get("/", (req, res) => {
 //showing bug cast to object id failed
 //body is empty : cannot read property "1" of null
 router.get("/:id", (req, res) => {
-  const id = req.params;
-  User.findById(id.id)
+  User.findById(req.params.id)
     .then((user) => res.json(user))
     .catch((err) =>
       console.log(
         err,
-        mongoose.Types.ObjectId.isValid(id.id),
-        typeof id.id,
-        id.id,
-        id.id
+        mongoose.Types.ObjectId.isValid(req.params.id),
+        typeof req.params.id,
+        req.params.id,
+        req.params.id
       )
     );
 });
